@@ -162,9 +162,9 @@ class Tab(QtWidgets.QWidget):
 
         else:
             self.raw_text = self.editor_pane.toPlainText()
+            scroll_val = self.editor_pane.verticalScrollBar().value()
 
             self.number_pane.setHtml("\n".join(f"<p align='right' style='margin-top:0px; margin-bottom:0px'>{x}</p>" for x in range(1, len(self.text.split("\n")) + 1)))
-            self.sync_scroll(self.editor_pane.verticalScrollBar().value())
 
             # syntax lexing/highlighting
             if self.lexer is not None:
@@ -180,6 +180,8 @@ class Tab(QtWidgets.QWidget):
 
                 edit_cursor.setPosition(cursor_pos)
                 self.editor_pane.setTextCursor(edit_cursor)
+
+            self.sync_scroll(scroll_val)
 
     @property
     def text(self):
@@ -254,7 +256,7 @@ class PyPad(Ui_MainWindow):
 
         window.show()
 
-        if launch_args.filenames:
+        if len(launch_args.filenames[0]) > 0:
             for file in launch_args.filenames[0]:
                 self.load_file(file)
 
