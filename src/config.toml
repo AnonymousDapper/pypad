@@ -1,0 +1,14 @@
+[Interface]
+  enable_highlighting = true
+
+  [Interface.menu_font]
+    face = "Iosevka"
+    size = 12
+
+  [Interface.editor_font]
+    face = "Iosevka"
+    size = 10
+
+[colorscheme]
+  search_dir = "./colorschemes"
+  active_scheme = "basic"

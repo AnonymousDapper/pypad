@@ -1,0 +1,69 @@
+["Body"]
+background = "#222244"
+color = "#EEEEEE"
+css_class = "pre"
+
+["Punctuation"]
+inherit = "Operator"
+css_class = "pre .p"
+
+["Comment"]
+color = "#888888"
+font = ["italic"]
+css_class = "pre .c"
+
+["Comment.Hashbang"]
+color = "#88CC88"
+css_class = "pre .ch"
+
+["Keyword"]
+color = "#2EEDB7"
+font = ["bold"]
+css_class = "pre .k"
+
+["Keyword.Namespace"]
+color = "#22B088"
+css_class = "pre .kn"
+
+["Keyword.Constant"]
+color = "#F5C747"
+font = ["bold"]
+css_class = "pre .kc"
+
+["Operator"]
+color = "#49C7F5"
+css_class = "pre .o"
+
+["Operator.Word"]
+color = "#49C7F5"
+font = ["bold"]
+css_class = "pre .ow"
+
+["Name.Function"]
+color = "#E75656"
+css_class = "pre .nf"
+
+["Name.Builtin.Pseudo"]
+inherit = "Name.Function"
+css_class = "pre .bp"
+
+["Name.Class"]
+color = "#F66222"
+font = ["italic"]
+css_class = "pre .nc"
+
+["Literal.String"]
+color = "#2497E3"
+css_class = "pre .s"
+
+["Literal.String.Escape"]
+inherit = "Keyword.Constant"
+css_class = "pre .se"
+
+["Literal.String.Doc"]
+color = "#BBBBBB"
+css_class = "pre .sd"
+
+["Literal.Number"]
+color = "#F79768"
+css_class = "pre .m"

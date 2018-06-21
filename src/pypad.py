@@ -20,7 +20,7 @@ import os
 
 import argparse
 
-import yaml
+import toml
 
 import pygments, pygments.lexers
 
@@ -50,7 +50,7 @@ class QtHtmlFormatter(Formatter):
                 if data['inherit'] in style:
                     data = style[data['inherit']]
 
-            style_lines.append(f"{css_class}{{{'color:' + data['color'] + ';' if data.get('color') is not None else ''}{'background:' + data['background'] + ';' if data.get('background') is not None else ''}{''.join(self._get_font_style(font_style) for font_style in data['font']) if data['font'] is not None else ''}}}")
+            style_lines.append(f"{css_class}{{{'color:' + data['color'] + ';' if data.get('color') is not None else ''}{'background:' + data['background'] + ';' if data.get('background') is not None else ''}{''.join(self._get_font_style(font_style) for font_style in data['font']) if data.get('font') is not None else ''}}}")
 
             self.class_ref.append(name)
 
@@ -162,7 +162,7 @@ class Tab(QtWidgets.QWidget):
 
         else:
             self.raw_text = self.editor_pane.toPlainText()
-            scroll_val = self.editor_pane.verticalScrollBar().value()
+            #self.sync_scroll(self.editor_pane.verticalScrollBar().value())
 
             self.number_pane.setHtml("\n".join(f"<p align='right' style='margin-top:0px; margin-bottom:0px'>{x}</p>" for x in range(1, len(self.text.split("\n")) + 1)))
 
@@ -180,8 +180,6 @@ class Tab(QtWidgets.QWidget):
 
                 edit_cursor.setPosition(cursor_pos)
                 self.editor_pane.setTextCursor(edit_cursor)
-
-            self.sync_scroll(scroll_val)
 
     @property
     def text(self):
@@ -204,20 +202,20 @@ class PyPad(Ui_MainWindow):
         self.window = window
 
         try:
-            with open("./config.yaml", "r", encoding="utf-8") as f:
-                self.config = yaml.load(f)
+            with open("./config.toml", "r", encoding="utf-8") as f:
+                self.config = toml.load(f)
 
         except Exception as e:
             print(f"Error loading config: [{e.__class__.__name__}]: {e}")
             sys.exit(1)
 
         try:
-            with open(f"{self.config['colorscheme']['search_dir']}/{self.config['colorscheme']['active_scheme']}.yaml", "r", encoding="utf-8") as f:
-                self.colorscheme = yaml.load(f)
+            with open(f"{self.config['colorscheme']['search_dir']}/{self.config['colorscheme']['active_scheme']}.toml", "r", encoding="utf-8") as f:
+                self.colorscheme = toml.load(f)
 
-        except yaml.scanner.ScannerError as e:
-            print(f"Could not parse colorscheme '{self.config['colorscheme']['active_scheme']}': {e}")
-            sys.exit(1)
+        #except toml.scanner.ScannerError as e:
+        #    print(f"Could not parse colorscheme '{self.config['colorscheme']['active_scheme']}': {e}")
+        #    sys.exit(1)
 
         except FileNotFoundError as e:
             print(f"Cannot find the requested colorscheme: {e}")
